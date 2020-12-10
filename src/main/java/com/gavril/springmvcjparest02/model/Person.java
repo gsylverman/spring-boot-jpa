@@ -2,9 +2,11 @@ package com.gavril.springmvcjparest02.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class People {
+@Table(name = "people")
+public class Person {
 	
 	@Id
 	private int id;
@@ -57,7 +59,7 @@ public class People {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		People other = (People) obj;
+		Person other = (Person) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;

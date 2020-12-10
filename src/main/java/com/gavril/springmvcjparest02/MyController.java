@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gavril.springmvcjparest02.dao.MyRepoI;
-import com.gavril.springmvcjparest02.model.People;
+import com.gavril.springmvcjparest02.model.Person;
 
 @Controller
 public class MyController {
@@ -24,23 +24,23 @@ public class MyController {
 		return "index";
 	}
 	
-	@RequestMapping(value = "add-people", method = RequestMethod.GET)
-	public String add(People people, Model m) {
-		List<People> list = myrepo.findAll();
-		if(!list.contains(people)) {
-			myrepo.save(people);
+	@RequestMapping(value = "add-person", method = RequestMethod.GET)
+	public String add(Person person, Model m) {
+		List<Person> list = myrepo.findAll();
+		if(!list.contains(person)) {
+			myrepo.save(person);
 		}
 				
-		m.addAttribute("peoples", list);
+		m.addAttribute("people", list);
 		return "show";
 	}
 	
-	@RequestMapping(value = "getPeople", method = RequestMethod.GET)
-	public ModelAndView getPeople(@RequestParam("id") int id) {
+	@RequestMapping(value = "getPerson", method = RequestMethod.GET)
+	public ModelAndView getPerson(@RequestParam("id") int id) {
 		ModelAndView mv = new ModelAndView("show");
 //		mv.setViewName("show");
-		People people = myrepo.findById(id).orElse(new People());
-		mv.addObject("peoples", people);
+		Person person = myrepo.findById(id).orElse(new Person());
+		mv.addObject("people", person);
 		return mv;
 	}
 }

@@ -8,8 +8,8 @@
 </head>
 <body>
 <div>
-	<h1>Add people</h1>
-	<form action="add-people">
+	<h1>Add person</h1>
+	<form action="add-person">
 	<label>Name:</label>
 	<input type="text" name="name" /><br/>
 	<label>Age:</label>
@@ -18,8 +18,8 @@
 	</form>
 </div>
 <div>
-	<h1>get People</h1>
-	<form action="getPeople">
+	<h1>Get person</h1>
+	<form action="getPerson">
 	<label>ID:</label>
 	<input type="number" name="id" /><br/>
 	<input type="submit" />
