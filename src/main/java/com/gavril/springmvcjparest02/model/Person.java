@@ -12,6 +12,7 @@ public class Person {
 	private int id;
 	private String name;
 	private int age;
+	private String tech;
 	
 	
 	public int getId() {
@@ -38,11 +39,13 @@ public class Person {
 		this.age = age;
 	}
 	
+
+	
 	@Override
 	public String toString() {
-		return "People [id=" + id + ", name=" + name + ", age=" + age + "]";
+		return "Person [id=" + id + ", name=" + name + ", age=" + age + ", tech=" + tech + "]";
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -66,5 +69,13 @@ public class Person {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	public String getTech() {
+		return tech;
+	}
+
+	public void setTech(String tech) {
+		this.tech = tech;
 	}
 }
