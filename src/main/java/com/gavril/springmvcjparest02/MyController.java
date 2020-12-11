@@ -1,10 +1,10 @@
 package com.gavril.springmvcjparest02;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.gavril.springmvcjparest02.dao.MyRepoI;
 import com.gavril.springmvcjparest02.model.Person;
@@ -40,11 +39,16 @@ public class MyController {
 		return "show";
 	}
 	
-	@RequestMapping(value = "getPeople", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "people", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
 	@ResponseBody
 	public List<Person> getPeopleList(Model m) {
 //		m.addAttribute("people", myrepo.findAll());
 		return myrepo.findAll();
+	}
+	
+	@RequestMapping(value = "put", method = RequestMethod.PUT)
+	public String put () {
+		return "hi";
 	}
 	
 	@GetMapping("getPersonByName")
@@ -66,12 +70,12 @@ public class MyController {
 		return "show";
 	}
 	
-	@RequestMapping(value = "getPersonById", method = RequestMethod.GET)
-	public ModelAndView getPerson(@RequestParam("id") int id) {
-		ModelAndView mv = new ModelAndView("show");
-//		mv.setViewName("show");
-		Person person = myrepo.findById(id).orElse(new Person());
-		mv.addObject("people", person);
-		return mv;
+	@RequestMapping(value = "person/{id}", method = RequestMethod.GET)
+	public Optional<Person> getPerson(@PathVariable("id") int id) {
+//		ModelAndView mv = new ModelAndView("show");
+////		mv.setViewName("show");
+//		Person person = myrepo.findById(id).orElse(new Person());
+//		mv.addObject("people", person);
+		return myrepo.findById(id);
 	}
 }
