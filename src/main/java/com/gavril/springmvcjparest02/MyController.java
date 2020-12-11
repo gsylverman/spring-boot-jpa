@@ -5,19 +5,20 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.gavril.springmvcjparest02.dao.MyRepoI;
 import com.gavril.springmvcjparest02.model.Person;
 
-@RestController
+@Controller  // (@Controler & @ResponseBody for rest methods or @RestController only)
 public class MyController {
 	
 	@Autowired
@@ -28,18 +29,19 @@ public class MyController {
 		return "index";
 	}
 	
-	@RequestMapping(value = "add-person", method = RequestMethod.GET)
-	public String add(Person person, Model m) {
+	@RequestMapping(value = "people", method = RequestMethod.POST)
+	@ResponseBody
+	public Person add(@RequestBody Person person, Model m) {
 		List<Person> list = myrepo.findAll();
 		if(!list.contains(person)) {
 			myrepo.save(person);
-		}
-				
+		}			
 		m.addAttribute("people", list);
-		return "show";
+
+		return person;
 	}
 	
-	@RequestMapping(value = "people", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
+	@RequestMapping(value = "people", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<Person> getPeopleList(Model m) {
 //		m.addAttribute("people", myrepo.findAll());
